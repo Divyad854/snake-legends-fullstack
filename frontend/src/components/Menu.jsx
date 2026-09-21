@@ -38,7 +38,7 @@ export default function Menu({ state, catalog, goTo, onPlay }) {
           <div className="sub">Theme, sound, speed</div>
         </button>
         <button className="menu-tile" onClick={() => goTo("snakes")}>
-          <div className="ico">🏆</div>
+          <div className="ico"></div>
           <div className="lbl">Shop</div>
           <div className="sub">{totalOwned} / 200 owned</div>
         </button>

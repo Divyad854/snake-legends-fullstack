@@ -10,8 +10,11 @@ _DB_DIR = os.environ.get("DB_DIR")
 if _DB_DIR:
     Path(_DB_DIR).mkdir(parents=True, exist_ok=True)
     DB_PATH = Path(_DB_DIR) / "snake_legends.db"
+    print(f"From if statement : {DB_PATH}")
 else:
     DB_PATH = Path(__file__).resolve().parent.parent / "snake_legends.db"
+    print(f"From else statement : {DB_PATH}")
+
 
 DEFAULT_STATE = {
     "name": "Player",
