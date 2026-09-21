@@ -1,0 +1,23 @@
+# Requires an ingress controller (e.g. ingress-nginx) already installed
+# on the cluster. Change host to your real domain, or delete this file and
+# use `kubectl port-forward` / a LoadBalancer Service instead (see README).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: snake-legends
+  namespace: snake-legends
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: snake.example.com   # <-- change this
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80

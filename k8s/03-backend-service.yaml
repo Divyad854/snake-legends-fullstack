@@ -1,0 +1,14 @@
+# Internal-only Service — the frontend nginx container proxies to this by
+# DNS name "backend" (see frontend/nginx.conf).
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: snake-legends
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP

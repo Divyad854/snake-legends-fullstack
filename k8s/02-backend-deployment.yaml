@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: snake-legends
+  labels:
+    app: backend
+spec:
+  replicas: 1   # see note in 01-backend-pvc.yaml about SQLite + replicas
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: YOUR_REGISTRY/snake-legends-backend:latest   # <-- change this
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_DIR
+              value: /data
+            - name: CORS_ORIGINS
+              value: "*"   # tighten to your real frontend URL once you have one
+          volumeMounts:
+            - name: db-storage
+              mountPath: /data
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: snake-db-pvc

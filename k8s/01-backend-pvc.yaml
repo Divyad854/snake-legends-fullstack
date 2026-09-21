@@ -1,0 +1,15 @@
+# Persists backend/snake_legends.db across pod restarts.
+# NOTE: SQLite + multiple replicas don't mix well (file locking). Keep the
+# backend Deployment's replicas at 1, or swap SQLite for Postgres if you
+# need to scale the backend horizontally.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: snake-db-pvc
+  namespace: snake-legends
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
