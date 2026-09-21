@@ -3,7 +3,7 @@ const BASE = import.meta.env.VITE_API_URL || "/api";
 function getPlayerId() {
   let id = localStorage.getItem("snakeLegendsPlayerId");
   if (!id) {
-    id = crypto.randomUUID();
+    id = `${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
     localStorage.setItem("snakeLegendsPlayerId", id);
   }
   return id;
