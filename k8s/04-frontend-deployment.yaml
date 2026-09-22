@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: YOUR_REGISTRY/snake-legends-frontend:latest   # <-- change this
+          image: divyaghori29/snake-legends-frontend:latest   # <-- change this
           ports:
             - containerPort: 80
           readinessProbe:
